@@ -15,6 +15,10 @@ class Dog : public Animal{
     void makeSound() override{
         std:: cout << "Dog Sound\n";
     }
+
+    void runOnFourLegs(){
+        std::cout << "Dog running on 4 Legs\n";
+    }
 };
 
 class Cat : public Animal{
@@ -34,6 +38,9 @@ class Cow : public Animal{
 void Sound(std::vector<Animal*> animals){
     for(int i = 0; i < animals.size(); i++){
         animals[i]->makeSound();
+        if(Dog * dog = dynamic_cast<Dog *>(animals[i])){
+            dog->runOnFourLegs();
+        }
     }
 }
 
