@@ -11,8 +11,11 @@ class Point{
 
     void DisplayPoint();
 
+    int getaAvailable();
+    void setAvailable(int num);
+
     private:
-    int availabe;
+    int available = 0;
 
     double Cart_x;
     double Cart_y;
