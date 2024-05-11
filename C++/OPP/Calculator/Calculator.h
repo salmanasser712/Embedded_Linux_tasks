@@ -5,8 +5,8 @@ class Calculator{
     public:
     Calculator() = default;
     virtual ~Calculator() = default;
-    virtual int add(int x, int y) = 0;
-    virtual int sub(int x, int y) = 0;
+    virtual void add() = 0;
+    virtual void sub() = 0;
     virtual void Display() = 0;
 
 };
