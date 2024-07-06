@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/cmake_testapp.dir/Date.cpp.o CMakeFiles/cmake_testapp.dir/testDate.cpp.o -o cmake_testapp 

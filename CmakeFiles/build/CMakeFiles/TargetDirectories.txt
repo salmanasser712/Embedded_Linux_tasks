@@ -1,0 +1,3 @@
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/CmakeFiles/build/CMakeFiles/cmake_testapp.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/CmakeFiles/build/CMakeFiles/edit_cache.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/CmakeFiles/build/CMakeFiles/rebuild_cache.dir
