@@ -4,7 +4,6 @@
 class Employee
 {
     public:
-    Employee() = default;
     Employee(int id, std::string name, int salary): id_(id), name_(name), salary_(salary)
     {}
 

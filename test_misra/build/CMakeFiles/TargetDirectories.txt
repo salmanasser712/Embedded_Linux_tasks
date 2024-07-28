@@ -1,0 +1,3 @@
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/build/CMakeFiles/cmake_testapp.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/build/CMakeFiles/edit_cache.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,4 @@
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/build/CMakeFiles/runTests.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/build/CMakeFiles/generate_report.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/build/CMakeFiles/edit_cache.dir
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/build/CMakeFiles/rebuild_cache.dir

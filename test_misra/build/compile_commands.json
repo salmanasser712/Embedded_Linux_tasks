@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/build",
+  "command": "/usr/bin/c++    -o CMakeFiles/cmake_testapp.dir/app.cpp.o -c /home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/app.cpp",
+  "file": "/home/salma/Desktop/Learning/Embedded_Linux_tasks/test_misra/app.cpp",
+  "output": "CMakeFiles/cmake_testapp.dir/app.cpp.o"
+}
+]
