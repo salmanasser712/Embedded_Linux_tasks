@@ -10,7 +10,7 @@ TEST(VectorIntTest, DefualtConstructor)
     Vector<int> v;
     EXPECT_EQ(v.size(), 0);
     EXPECT_EQ(v.capacity(), 10);
-    EXPECT_THROW(v[1], std::out_of_range);
+    EXPECT_THROW(v.at(1), std::out_of_range);
     EXPECT_THROW(v.pop_back(), std::out_of_range);
 }
 
@@ -21,7 +21,7 @@ TEST(VectorIntTest, Initializer_listConstructor)
     EXPECT_EQ(v[0], 5);
     EXPECT_EQ(v[1], 4);
     EXPECT_EQ(v[2], 8);
-    EXPECT_THROW(v[3], std::out_of_range);
+    EXPECT_THROW(v.at(3), std::out_of_range);
 }
 
 TEST(VectorIntTest, ValueConstructor)
@@ -32,7 +32,7 @@ TEST(VectorIntTest, ValueConstructor)
     {
         EXPECT_EQ(v[i], 7);
     }
-    EXPECT_THROW(v[20], std::out_of_range);
+    EXPECT_THROW(v.at(20), std::out_of_range);
 }
 
 TEST(VectorIntTest, CopyConstructor)
@@ -115,4 +115,98 @@ TEST(VectorIntTest, crbegin_crend)
     Vector<int>::const_reverse_iterator crbeginiter = v.crbegin(), crenditer = v.crend();
     EXPECT_EQ(*(crbeginiter + 1), 3);
     EXPECT_EQ(*(crenditer - 1), 7);
+}
+
+TEST(VectorIntTest, Max_Size)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    EXPECT_EQ(v.max_size(), 4611686018427387903);
+
+}
+
+TEST(VectorIntTest, resize_novalue)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    v.resize(13);
+    EXPECT_EQ(v.size(), 13);
+    EXPECT_EQ(v[10], 0);
+    EXPECT_EQ(v.capacity(), 26);
+}
+
+TEST(VectorIntTest, resize_value)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    v.resize(25, 7);
+    EXPECT_EQ(v.size(), 25);
+    EXPECT_EQ(v[10], 7);
+    EXPECT_EQ(v.capacity(), 50);
+}
+
+TEST(VectorIntTest, shrink_to_fit)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    v.shrink_to_fit();
+    EXPECT_EQ(v.size(), 5);
+    EXPECT_EQ(v.capacity(), 5);
+}
+
+TEST(VectorIntTest, reserve)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    EXPECT_EQ(v.capacity(), 5);
+    v.reserve(11);
+    EXPECT_EQ(v.capacity(), 22);
+    EXPECT_EQ(v.size(), 5);
+
+    v.reserve(3);
+    EXPECT_EQ(v.capacity(), 22);
+    EXPECT_EQ(v.size(), 5);
+
+}
+
+TEST(VectorIntTest, front_back)
+{
+    Vector<int> v = {7, 4, 5, 3, 11};
+    EXPECT_EQ(v.front(), 7);
+    EXPECT_EQ(v.back(), 11);
+}
+
+TEST(VectorIntTest, data)
+{
+    Vector<int> v;
+    v.push_back(5);
+    v.push_back(8);
+    v.push_back(37);
+    int *ptr = v.data();
+    EXPECT_EQ(*ptr, 5);
+    EXPECT_EQ(*(ptr + 1), 8);
+}
+TEST(VectorIntTest, assign_size_value)
+{
+    Vector<int> v = {3, 5, 37};
+    v.assign(8, 7);
+    for(int i = 0; i < 8; i++)
+    {
+        EXPECT_EQ(v[i], 7);
+    }
+    EXPECT_EQ(v.size(), 8);
+    EXPECT_EQ(v.capacity(), 16);
+}
+
+TEST(VectorIntTest, clear)
+{
+    Vector<int> v = {3, 5, 37};
+    v.clear();
+    EXPECT_EQ(v[1], 5);
+}
+
+TEST(VectorIntTest, assign_range)
+{
+    Vector<int> v1;
+    int a[] = { 1, 2, 3 };
+    v1.assign(a, a + 2);
+    EXPECT_EQ(v1[0], 1);
+    EXPECT_EQ(v1[1], 2);
+    EXPECT_EQ(v1.size(), 2);
+    EXPECT_EQ(v1.capacity(), 10);
 }

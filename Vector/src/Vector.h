@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <memory>
+#include <iterator>
 #include <iostream>
 
 namespace ara {
@@ -34,14 +35,29 @@ class Vector {
     const_reverse_iterator crend(void);
     
 
-    void push_back(T value);
+    void push_back(const T& value);
     void pop_back(void);
+
+
     std::size_t size(void);
     std::size_t capacity(void);
+    std::size_t max_size(void);
+    void resize(std::size_t n);
+    void resize(std::size_t n, const T& value);
+    void shrink_to_fit(void);
+    void reserve(std::size_t n);
     bool empty(void);
 
-    
+    T& at(std::size_t index);
     T& operator[](std::size_t index);
+    T& front(void);
+    T& back(void);
+    T* data(void);
+    void assign(std::size_t size, T value);
+
+    void clear(void);
+    // Templated assign method to assign a range of elements
+    void assign(T* first, T* last);
 
 
 

@@ -129,7 +129,7 @@ namespace core {
     }
 
     template <typename T, typename Allocator>
-    void  Vector<T, Allocator>::push_back(T value)
+    void  Vector<T, Allocator>::push_back(const T& value)
     {
         if(current_index >= current_capacity)
         {
@@ -177,21 +177,198 @@ namespace core {
     }
 
     template <typename T, typename Allocator>
+    void Vector<T, Allocator>::resize(std::size_t n)
+    {
+        if(n > current_capacity)
+        {
+            try
+            {
+                T* temp = new T[n * 2];
+                for(std::size_t i = 0; i < n; i++)
+                {
+                    if(i < current_index) temp[i] = this->arr[i];
+                    else temp[i] = T();
+                }
+                delete [] (this->arr);
+                this->arr = temp;
+                this->current_index = n;
+                this->current_capacity = 2 * n;
+            }
+            catch (const std::bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                return;
+            }
+        }
+        else
+        {
+            current_index = n;
+        }
+    }
+
+    template <typename T, typename Allocator>
+    void Vector<T, Allocator>::resize(std::size_t n, const T& value)
+    {
+        if(n > current_capacity)
+        {
+            try
+            {
+                T* temp = new T[n * 2];
+                for(std::size_t i = 0; i < n; i++)
+                {
+                    if(i < current_index) temp[i] = this->arr[i];
+                    else temp[i] = value;
+                }
+                delete [] (this->arr);
+                this->arr = temp;
+                this->current_index = n;
+                this->current_capacity = 2 * n;
+            }
+            catch (const std::bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                return;
+            }
+        }
+        else
+        {
+            current_index = n;
+        }
+    }
+
+    template <typename T, typename Allocator>
+    void Vector<T, Allocator>::shrink_to_fit(void)
+    {
+        try
+        {
+            T* temp = new T[current_index];
+            for(std::size_t i = 0; i < current_index; i++)
+            {
+                temp[i] = this->arr[i];
+            }
+            delete[] (this->arr);
+            this->arr = temp;
+            this->current_capacity = current_index;
+
+        }
+        catch (const std::bad_alloc& e) {
+            std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            return;
+        }
+    }
+
+    template <typename T, typename Allocator>
+    void Vector<T, Allocator>::reserve(std::size_t n)
+    {
+        if(n > current_capacity)
+        {
+            try
+            {
+                T* temp = new T[n * 2];
+                for(std::size_t i = 0; i < current_index; i++)
+                {
+                    temp[i] = this->arr[i];
+                }
+                delete[] (this->arr);
+                this->arr = temp;
+                this->current_capacity = n * 2;
+            }
+            catch (const std::bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                return;
+            }
+        }
+    }
+
+    template <typename T, typename Allocator>
     bool Vector<T, Allocator>::empty(void)
     {
         return current_index == 0;
     }
 
     template <typename T, typename Allocator>
-    T& Vector<T, Allocator>::operator[](std::size_t index)
-    {
-        if(index >= current_index)
-        {
-            throw std::out_of_range("Out of bounds");
+    std::size_t Vector<T, Allocator>::max_size(void) {
+        return std::numeric_limits<std::size_t>::max() / sizeof(T);
+    }
+
+    template <typename T, typename Allocator>
+    T& Vector<T, Allocator>::at(std::size_t index) {
+        if (index >= current_index) {
+            throw std::out_of_range("Index out of bounds");
         }
         return arr[index];
     }
+
+    template <typename T, typename Allocator>
+    T& Vector<T, Allocator>::operator[](std::size_t index)
+    {
+        return arr[index];
+    }
+
+    template <typename T, typename Allocator>
+    T& Vector<T, Allocator>::front(void)
+    {
+        return arr[0];
+    }
+
+    template <typename T, typename Allocator>
+    T& Vector<T, Allocator>::back(void)
+    {
+        return arr[this->current_index - 1];
+    }
+
+    template <typename T, typename Allocator>
+    T* Vector<T, Allocator>::data(void)
+    {
+        return this->arr;
+    }
+
+    template<typename T, typename Allocator>
+    void Vector<T, Allocator>::clear(void)
+    {
+        
+        for(std::size_t i = 0; i < current_index; i++)
+        {
+            this->arr[i].~T();
+        }
+        current_index = 0;
+    }
     
+    template <typename T, typename Allocator>
+    void Vector<T, Allocator>::assign(std::size_t new_size, T value)
+    {
+        this->clear();
+
+        if(new_size > current_capacity)
+        {
+            this->reserve(new_size);
+        }
+
+        for(std::size_t i = 0; i < new_size; i++)
+        {
+            this->push_back(value);
+        }
+    }
+
+
+    template<typename T, typename Allocator>
+    void Vector<T, Allocator>::assign(T* first, T* last)
+    {
+        if(first > last)
+        {
+            throw std::invalid_argument("Invalid range: last < first");
+        }
+
+        this->clear();
+
+        std::size_t new_size = last - first;
+        if(new_size > this->current_capacity)
+        {
+            this->reserve(new_size);
+        }
+        for(auto it = first; it != last; ++it)
+        {
+            this->push_back(*it);
+        }
+    }
 
 
     template <typename T, typename Allocator>
