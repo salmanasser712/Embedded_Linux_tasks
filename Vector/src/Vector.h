@@ -4,7 +4,6 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <memory>
-#include <iterator>
 #include <iostream>
 
 namespace ara {
@@ -14,6 +13,7 @@ template <typename T, typename Allocator = std::allocator<T>>
 class Vector {
     public:
     using iterator = T*;                                         // Define an iterator type as a pointer to T
+    using InputIterator = iterator;
     using const_iterator = const T*;
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
@@ -33,10 +33,6 @@ class Vector {
     reverse_iterator rend(void);
     const_reverse_iterator crbegin(void);
     const_reverse_iterator crend(void);
-    
-
-    void push_back(const T& value);
-    void pop_back(void);
 
 
     std::size_t size(void);
@@ -53,11 +49,21 @@ class Vector {
     T& front(void);
     T& back(void);
     T* data(void);
-    void assign(std::size_t size, T value);
 
+    void push_back(const T& value);
+    void pop_back(void);
     void clear(void);
-    // Templated assign method to assign a range of elements
-    void assign(T* first, T* last);
+    void assign(std::size_t size, const T& value);
+    void assign(InputIterator first, InputIterator last);                               // Templated assign method to assign a range of elements
+    void assign(std::initializer_list<T> init_list);
+    iterator insert(const_iterator position, const T& value);
+    iterator insert(const_iterator position, T&& value);
+    iterator insert(const_iterator position, std::size_t n, const T& val);
+    iterator insert(const_iterator position, InputIterator first, InputIterator last);
+    iterator insert(const_iterator position, std::initializer_list<T> ilist);
+    iterator erase(const_iterator position);
+    iterator erase(const_iterator first, const_iterator last);
+    
 
 
 
@@ -68,6 +74,7 @@ class Vector {
     T* arr;
     std::size_t current_capacity;
     std::size_t current_index;
+    void move_backward(std::size_t index);
 };
 
 } // namespace core

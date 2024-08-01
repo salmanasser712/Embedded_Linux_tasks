@@ -198,6 +198,7 @@ TEST(VectorIntTest, clear)
     Vector<int> v = {3, 5, 37};
     v.clear();
     EXPECT_EQ(v[1], 5);
+    EXPECT_EQ(v.size(), 0);
 }
 
 TEST(VectorIntTest, assign_range)
@@ -210,3 +211,68 @@ TEST(VectorIntTest, assign_range)
     EXPECT_EQ(v1.size(), 2);
     EXPECT_EQ(v1.capacity(), 10);
 }
+
+TEST(VectorIntTest, insert_rvalue)
+{
+    Vector<int> v = {3, 5, 37};
+    EXPECT_EQ(v.size(), 3);
+    v.insert(v.begin() + 3, 500);
+    v.insert(v.begin(), 200);
+    EXPECT_EQ(v[4], 500);
+    EXPECT_EQ(v[0], 200);
+    EXPECT_EQ(v[1], 3);
+    EXPECT_EQ(v[2], 5);
+    EXPECT_EQ(v[3], 37);
+
+}
+
+TEST(VectorIntTest, insert_range)
+{
+    Vector<int> original{ 1, 2, 3, 4, 5 }; 
+    Vector<int> temp{ 2, 5, 9, 0, 3, 10 };  
+    original.insert(original.begin() + 3, temp.begin() + 2, temp.begin() + 5); 
+    EXPECT_EQ(original.size(), 8);
+    EXPECT_EQ(original[3], 9);
+    EXPECT_EQ(original[4], 0);
+    EXPECT_EQ(original[5], 3);
+
+}
+
+TEST(VectorIntTest, insert_initalization)
+{
+    Vector<int> v = {3, 5, 37};
+    v.insert(v.begin() + 2, {5, 4, 77});
+    EXPECT_EQ(v.size(), 6);
+    EXPECT_EQ(v[0], 3);
+    EXPECT_EQ(v[1], 5);
+    EXPECT_EQ(v[2], 5);
+    EXPECT_EQ(v[3], 4);
+    EXPECT_EQ(v[4], 77);
+    EXPECT_EQ(v[5], 37);
+}
+
+TEST(VectorIntTest, erase_position)
+{
+    Vector<int> v = {3, 5, 37};
+    EXPECT_THROW(v.erase(v.begin() + 3), std::out_of_range);
+    v.erase(v.begin());
+    EXPECT_EQ(v.size(), 2);
+    EXPECT_EQ(v[0], 5);
+    EXPECT_EQ(v[1], 37);
+}
+
+TEST(VectorIntTest, erase_range)
+{
+    Vector<int> vector = { 1, 2, 3, 3, 4, 5 };
+    Vector<int>::iterator it1, it2;
+ 
+    it1 = vector.begin();
+    it2 = vector.end();
+    it2--;
+    it2--;
+    vector.erase(it1, it2);
+    EXPECT_EQ(vector.size(), 2);
+    EXPECT_EQ(vector[0], 4);
+    EXPECT_EQ(vector[1], 5);
+}
+

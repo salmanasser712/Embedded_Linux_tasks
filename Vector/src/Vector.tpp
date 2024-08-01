@@ -324,7 +324,6 @@ namespace core {
     template<typename T, typename Allocator>
     void Vector<T, Allocator>::clear(void)
     {
-        
         for(std::size_t i = 0; i < current_index; i++)
         {
             this->arr[i].~T();
@@ -333,7 +332,7 @@ namespace core {
     }
     
     template <typename T, typename Allocator>
-    void Vector<T, Allocator>::assign(std::size_t new_size, T value)
+    void Vector<T, Allocator>::assign(std::size_t new_size, const T& value)
     {
         this->clear();
 
@@ -350,7 +349,7 @@ namespace core {
 
 
     template<typename T, typename Allocator>
-    void Vector<T, Allocator>::assign(T* first, T* last)
+    void Vector<T, Allocator>::assign(InputIterator first, InputIterator last)
     {
         if(first > last)
         {
@@ -368,6 +367,152 @@ namespace core {
         {
             this->push_back(*it);
         }
+    }
+
+    template<typename T, typename Allocator>
+    void Vector<T, Allocator>::assign(std::initializer_list<T> init_list)
+    {
+        this->clear();
+        std::size_t new_size = init_list.size();
+        if(new_size > this->current_capacity)
+        {
+            this->reserve(new_size);
+        }
+
+        for(auto item : init_list)
+        {
+            this->push_back(item);
+        }
+
+    }
+
+    template<typename T, typename Allocator>
+    void Vector<T, Allocator>::move_backward(std::size_t index)
+    {
+        for(std::size_t i = current_index; i > index ; i--)
+        {
+            this->arr[i] = this->arr[i - 1];
+        }
+    }
+
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator Vector<T, Allocator>::insert(const_iterator position, const T& value)
+    {
+        if(position > end() || position < begin())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }
+        std::size_t index = (position - this->begin());
+        this->reserve(current_index + 1);
+        this->move_backward(index);
+        this->arr[index] = value;
+        current_index++;
+
+        return iterator(position);
+
+    }
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator Vector<T, Allocator>:: insert(const_iterator position, T&& value)
+    {
+        if(position > end() || position < begin())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }
+        std::size_t index = (position - this->begin());
+        this->reserve(current_index + 1);
+        this->move_backward(index);
+        this->arr[index] = std::move(value);
+        current_index++;
+
+        return iterator(position);
+    }
+
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator 
+    Vector<T, Allocator>::insert(const_iterator position, std::size_t n, const T& val)
+    {
+        for(std::size_t i = 0; i < n; i++)
+        {
+            this->insert(position, val);
+        }
+        return position;
+    }
+
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator 
+    Vector<T, Allocator>::insert (const_iterator position, InputIterator first, InputIterator last)
+    {
+        if(position > end() || position < begin())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }
+        if(first > last)
+        {
+            throw std::invalid_argument("Invalid range: last < first");
+        }
+        std::size_t add_sz = last - first;
+        std::size_t index = position - begin();
+        if(current_index + add_sz > current_capacity)
+        {
+            this->reserve(current_index + add_sz);
+        }
+        iterator it = first;
+        for(std::size_t i = 0; i < current_index + add_sz; i++)
+        {
+            if(i >= index && i < index + add_sz)
+            {
+                this->arr[i + add_sz] = arr[i];
+                this->arr[i] = *it;
+                it++;
+            }
+        }
+        this->current_index += add_sz;
+        return first;
+    }
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator 
+    Vector<T, Allocator>:: insert( const_iterator position, std::initializer_list<T> ilist )
+    {
+        this->insert(position, InputIterator(ilist.begin()), InputIterator(ilist.end()));
+        return iterator(position);
+    }
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator 
+    Vector<T, Allocator>:: erase(const_iterator position)
+    {
+        if(position >= end() || position < begin())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }
+        for(std::size_t i = 0; i < current_index - 1; i++)
+        {
+            this->arr[i] = this->arr[i + 1];
+        }
+        this->current_index--;
+        return iterator(position);
+    }
+
+    template<typename T, typename Allocator>
+    typename Vector<T, Allocator>::iterator 
+    Vector<T, Allocator>:: erase(const_iterator first, const_iterator last)
+    {
+        if(first >= end() || first < begin() || last <= begin() || last > end())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }   
+        if(first >= last)
+        {
+            throw std::invalid_argument("Invalid range: last <= first");
+        }
+        std::size_t start = first - begin();
+        std::size_t range = last - first;
+
+        for(std::size_t i = start; i + range < current_index; i++)
+        {
+            this->arr[i] = this->arr[i + range];
+        }
+        this->current_index -= range;
+        return iterator(first);
     }
 
 
