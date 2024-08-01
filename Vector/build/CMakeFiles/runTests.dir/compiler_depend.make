@@ -329,6 +329,7 @@ CMakeFiles/runTests.dir/tests/VectorDoubleTest.cpp.o: /home/salma/Desktop/Learni
 CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o: /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorIntTest.cpp \
   /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/src/Vector.h \
   /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/src/Vector.tpp \
+  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/A_struct.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -1303,6 +1304,8 @@ CMakeFiles/runTests.dir/tests/main.cpp.o: /home/salma/Desktop/Learning/Embedded_
 /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/main.cpp:
 
 /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorStringTest.cpp:
+
+/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/A_struct.h:
 
 /usr/local/include/gtest/internal/gtest-port.h:
 

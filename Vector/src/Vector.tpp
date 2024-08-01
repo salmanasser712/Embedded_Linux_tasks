@@ -431,11 +431,21 @@ namespace core {
     typename Vector<T, Allocator>::iterator 
     Vector<T, Allocator>::insert(const_iterator position, std::size_t n, const T& val)
     {
-        for(std::size_t i = 0; i < n; i++)
+        try
         {
-            this->insert(position, val);
+            T* temp = new T[n];
+            for(std::size_t i = 0; i < n; i++)
+            {
+                temp[i] = val;
+            }
+            this->insert(position, temp, temp + n);
+            delete[] temp;
         }
-        return position;
+        catch (const std::bad_alloc& e) {
+            std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            return iterator(position);
+        }
+        return iterator(position);
     }
 
     template<typename T, typename Allocator>
@@ -514,7 +524,48 @@ namespace core {
         this->current_index -= range;
         return iterator(first);
     }
+    template <typename T, typename Allocator>
+    template <class... Args>
+    typename Vector<T, Allocator>::iterator Vector<T, Allocator>::emplace(const_iterator position, Args&&... args)
+    {
+        if(position > end() || position < begin())
+        {
+            throw std::out_of_range("Index out of bounds");
+        }
+        std::size_t index = (position - this->begin());
+        this->reserve(current_index + 1);
+        this->move_backward(index);
 
+        new (arr + index) T(std::forward<Args>(args)...);
+
+        current_index++;
+
+
+        return iterator(position);
+    }
+
+    template <typename T, typename Allocator>
+    template < class... Args >
+    void Vector<T, Allocator>::emplace_back( Args&&... args )
+    {
+        this->emplace(end(), std::forward<Args>(args)...);
+    }
+
+    template <typename T, typename Allocator>
+    void Vector<T, Allocator>::swap( Vector<T, Allocator>& other )
+    {
+        T* temp_arr = other.arr;
+        std::size_t temp_current_index = other.current_index;
+        std::size_t temp_current_capacity = other.current_capacity;
+
+        other.arr = this->arr;
+        other.current_index = this->current_index;
+        other.current_capacity = this->current_capacity;
+
+        this->arr = temp_arr;
+        this->current_index = temp_current_index;
+        this->current_capacity = temp_current_capacity;
+    }
 
     template <typename T, typename Allocator>
     Vector<T, Allocator>::~Vector()

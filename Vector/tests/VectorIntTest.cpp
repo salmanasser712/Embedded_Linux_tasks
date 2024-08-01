@@ -1,6 +1,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 #include "../src/Vector.h"
+#include "A_struct.h"
 
 using namespace ara;
 using namespace core;
@@ -274,5 +275,74 @@ TEST(VectorIntTest, erase_range)
     EXPECT_EQ(vector.size(), 2);
     EXPECT_EQ(vector[0], 4);
     EXPECT_EQ(vector[1], 5);
+}
+
+TEST(VectorIntTest, erase_range2)
+{
+    Vector<int> vector = { 1, 2, 3, 3, 4, 5 };
+    Vector<int>::iterator it1, it2;
+ 
+    it1 = vector.begin();
+    it2 = vector.end();
+    vector.erase(it1, it2);
+    EXPECT_EQ(vector.size(), 0);
+}
+
+
+TEST(VectorIntTest, emplace_args)
+{
+    Vector<A> container;
+    container.reserve(10);
+    A two { "two" };
+    A three { "three" };
+    container.emplace(container.end(), "one");
+    EXPECT_EQ(container.size(), 1);
+    EXPECT_EQ(container[0].get_str(), "one");
+    container.emplace(container.end(), two);
+    EXPECT_EQ(container.size(), 2);
+    EXPECT_EQ(container[1].get_str(), "two");
+    container.emplace(container.end(), std::move(three));
+    EXPECT_EQ(container.size(), 3);
+    EXPECT_EQ(container[2].get_str(), "three");
+}
+
+TEST(VectorIntTest, emplace_back)
+{
+    Vector<A> container;
+    container.reserve(10);
+    A two { "two" };
+    A three { "three" };
+    container.emplace_back("one");
+    EXPECT_EQ(container.size(), 1);
+    EXPECT_EQ(container[0].get_str(), "one");
+    container.emplace_back(two);
+    EXPECT_EQ(container.size(), 2);
+    EXPECT_EQ(container[1].get_str(), "two");
+    container.emplace_back(std::move(three));
+    EXPECT_EQ(container.size(), 3);
+    EXPECT_EQ(container[2].get_str(), "three");
+}
+
+TEST(VectorIntTest, swap_default)
+{
+    Vector<int> a1{1, 2, 3}, a2{4, 5};
+ 
+    auto it1 = std::next(a1.begin());
+    auto it2 = std::next(a2.begin());
+ 
+    int& ref1 = a1.front();
+    int& ref2 = a2.front();
+    EXPECT_EQ(*it1, 2);
+    EXPECT_EQ(*it2, 5);
+    EXPECT_EQ(ref1, 1);
+    EXPECT_EQ(ref2, 4);
+
+    a1.swap(a2);
+    
+    EXPECT_EQ(*it1, 2);
+    EXPECT_EQ(*it2, 5);
+    EXPECT_EQ(ref1, 1);
+    EXPECT_EQ(ref2, 4);
+
 }
 

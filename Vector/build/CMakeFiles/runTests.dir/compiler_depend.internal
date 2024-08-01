@@ -331,6 +331,7 @@ CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o
  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorIntTest.cpp
  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/src/Vector.h
  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/src/Vector.tpp
+ /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/A_struct.h
  /usr/include/alloca.h
  /usr/include/asm-generic/bitsperlong.h
  /usr/include/asm-generic/errno-base.h

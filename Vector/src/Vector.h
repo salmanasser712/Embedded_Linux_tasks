@@ -63,7 +63,13 @@ class Vector {
     iterator insert(const_iterator position, std::initializer_list<T> ilist);
     iterator erase(const_iterator position);
     iterator erase(const_iterator first, const_iterator last);
-    
+
+    template <class... Args>
+    iterator emplace(const_iterator position, Args&&... args);
+    template< class... Args >
+    void emplace_back( Args&&... args );
+
+    void swap( Vector<T, Allocator>& other );
 
 
 

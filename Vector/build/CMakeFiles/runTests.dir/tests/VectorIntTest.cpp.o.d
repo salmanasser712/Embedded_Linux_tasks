@@ -260,4 +260,5 @@ CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o: \
  /usr/local/include/gtest/gtest_prod.h \
  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/../src/Vector.h \
  /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/../src/Vector.tpp \
- /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/../src/Vector.h
+ /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/../src/Vector.h \
+ /home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/A_struct.h
