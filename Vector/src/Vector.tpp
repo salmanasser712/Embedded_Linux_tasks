@@ -165,7 +165,7 @@ namespace core {
     }
 
     template <typename T, typename Allocator>
-    std::size_t Vector<T, Allocator>::size(void)
+    std::size_t Vector<T, Allocator>::size(void) const
     {
         return current_index;
     }
@@ -299,6 +299,12 @@ namespace core {
 
     template <typename T, typename Allocator>
     T& Vector<T, Allocator>::operator[](std::size_t index)
+    {
+        return arr[index];
+    }
+
+    template <typename T, typename Allocator>
+    const T& Vector<T, Allocator>::operator[]( std::size_t index ) const
     {
         return arr[index];
     }
@@ -568,10 +574,115 @@ namespace core {
     }
 
     template <typename T, typename Allocator>
+    typename Vector<T, Allocator>::Vector& Vector<T, Allocator>::operator=( const Vector& other )
+    {
+        if (this == &other) {
+            return *this;
+        }
+
+        delete[] arr;
+    
+        current_index = other.current_index;
+        current_capacity = other.current_capacity;
+    
+        this->reserve(current_index);
+        std::copy(other.arr, other.arr + current_index, this->arr);
+    
+        return *this;
+    }
+    template <typename T, typename Allocator>
+    typename Vector<T, Allocator>::Vector& Vector<T, Allocator>::operator=( Vector&& other )
+    {
+        if (this == &other) {
+            return *this;
+        }
+    
+        delete[] arr;
+    
+        arr = other.arr;
+        current_index = other.current_index;
+        current_capacity = other.current_capacity;
+    
+        other.arr = nullptr;
+        other.current_index = 0;
+        other.current_capacity = 0;
+    
+        return *this;
+    }
+
+    template <typename T, typename Allocator>
+    typename Vector<T, Allocator>::Vector& Vector<T, Allocator>::operator=( std::initializer_list<T> ilist )
+    {
+    
+        current_index = current_capacity = 0;
+
+        for(auto item: ilist)
+        {
+            this->push_back(item);
+        }
+        
+        return *this;
+    }
+
+    template <typename T, typename Allocator>
     Vector<T, Allocator>::~Vector()
     {
         delete[] arr;
     }
+
+    template <typename T, typename Allocator>
+    bool operator==(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
+    {
+        if (lhs.size() != rhs.size()) {
+            return false;
+        }
+        for (std::size_t i = 0; i < lhs.size(); ++i) {
+            if (lhs[i] != rhs[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    template <typename T, typename Allocator>
+    bool operator!=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
+    {
+        if (lhs.size() != rhs.size()) {
+            return true;
+        }
+        for (std::size_t i = 0; i < lhs.size(); ++i) {
+            if (lhs[i] != rhs[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    template <typename T, typename Allocator>
+    bool operator<(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
+    {
+        Vector<T>::iterator itl = lhs.begin(), itr = rhs.begin();
+        for(itl < lhs.size() && itr < rhs.size(); itl++, itr++)
+        {
+            if(*itl > *itr)
+            {
+                return false;
+            }
+            if(*itl < *itr)
+            {
+                return true;
+            }
+
+            if()
+        }
+    }
+
+    template <typename T, typename Allocator>
+    bool operator<=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
+    {
+
+    }
+
 
 }
 }

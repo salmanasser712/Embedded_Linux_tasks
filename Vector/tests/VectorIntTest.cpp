@@ -346,3 +346,40 @@ TEST(VectorIntTest, swap_default)
 
 }
 
+TEST(VectorIntTest, Operator_equal1)
+{
+    Vector<int> x{1, 2, 3}, y, z;
+    const auto w = {4, 5, 6, 7};
+    y = x;
+    EXPECT_EQ(y.size(), 3);
+    EXPECT_EQ(x.size(), 3);
+    EXPECT_EQ(x[0], y[0]);
+    EXPECT_EQ(x[1], y[1]);
+    EXPECT_EQ(x[2], y[2]);
+
+}
+
+TEST(VectorIntTest, Operator_equal2)
+{
+    Vector<int> x{1, 2, 3}, y, z;
+    const auto w = {4, 5, 6, 7};
+    z = std::move(x);
+    EXPECT_EQ(z.size(), 3);
+    EXPECT_EQ(x.size(), 0);
+    EXPECT_EQ(z[0], 1);
+    EXPECT_EQ(z[1], 2);
+    EXPECT_EQ(z[2], 3);
+}
+
+TEST(VectorIntTest, Operator_equal3)
+{
+    Vector<int> x{1, 2, 3}, y, z;
+    const auto w = {4, 5, 6, 7};
+    z = w;
+    EXPECT_EQ(z.size(), 4);
+    EXPECT_EQ(z[0], 4);
+    EXPECT_EQ(z[1], 5);
+    EXPECT_EQ(z[2], 6);
+    EXPECT_EQ(z[3], 7);
+}
+

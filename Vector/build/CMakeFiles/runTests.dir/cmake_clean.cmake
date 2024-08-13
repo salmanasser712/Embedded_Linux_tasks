@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/runTests.dir/tests/VectorDoubleTest.cpp.o.d"
   "CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o"
   "CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o.d"
+  "CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.o"
+  "CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.o.d"
   "CMakeFiles/runTests.dir/tests/VectorStringTest.cpp.o"
   "CMakeFiles/runTests.dir/tests/VectorStringTest.cpp.o.d"
   "CMakeFiles/runTests.dir/tests/main.cpp.o"

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorDoubleTest.cpp" "CMakeFiles/runTests.dir/tests/VectorDoubleTest.cpp.o" "gcc" "CMakeFiles/runTests.dir/tests/VectorDoubleTest.cpp.o.d"
   "/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorIntTest.cpp" "CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o" "gcc" "CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.o.d"
+  "/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorOperatorTest.cpp" "CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.o" "gcc" "CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.o.d"
   "/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/VectorStringTest.cpp" "CMakeFiles/runTests.dir/tests/VectorStringTest.cpp.o" "gcc" "CMakeFiles/runTests.dir/tests/VectorStringTest.cpp.o.d"
   "/home/salma/Desktop/Learning/Embedded_Linux_tasks/Vector/tests/main.cpp" "CMakeFiles/runTests.dir/tests/main.cpp.o" "gcc" "CMakeFiles/runTests.dir/tests/main.cpp.o.d"
   )

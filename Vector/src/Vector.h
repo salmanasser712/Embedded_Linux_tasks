@@ -35,7 +35,7 @@ class Vector {
     const_reverse_iterator crend(void);
 
 
-    std::size_t size(void);
+    std::size_t size(void)const;
     std::size_t capacity(void);
     std::size_t max_size(void);
     void resize(std::size_t n);
@@ -46,6 +46,7 @@ class Vector {
 
     T& at(std::size_t index);
     T& operator[](std::size_t index);
+    const T& operator[]( std::size_t index ) const;
     T& front(void);
     T& back(void);
     T* data(void);
@@ -71,6 +72,12 @@ class Vector {
 
     void swap( Vector<T, Allocator>& other );
 
+    Vector& operator=( const Vector& other );
+    Vector& operator=( Vector&& other );
+    Vector& operator=( std::initializer_list<T> ilist );
+
+    friend void swap(Vector<T, Allocator>& lhs, Vector<T, Allocator>& rhs);
+
 
 
     ~Vector();
@@ -82,6 +89,32 @@ class Vector {
     std::size_t current_index;
     void move_backward(std::size_t index);
 };
+
+template <typename T, typename Allocator>
+bool operator==(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+bool operator!=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+bool operator<(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+bool operator<=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+bool operator>(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+bool operator>=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
+
+template <typename T, typename Allocator>
+void swap(Vector<T, Allocator>& lhs, Vector<T, Allocator>& rhs);
+
+
+
+
+
 
 } // namespace core
 } // namespace ara

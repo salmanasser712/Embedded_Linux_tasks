@@ -16,6 +16,7 @@ set(TEST_FILES
     tests/VectorDoubleTest.cpp
     tests/VectorIntTest.cpp
     tests/VectorStringTest.cpp
+    tests/VectorOperatorTest.cpp
 )
 
 # Locate GTest

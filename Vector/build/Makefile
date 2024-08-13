@@ -190,6 +190,30 @@ tests/VectorIntTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/tests/VectorIntTest.cpp.s
 .PHONY : tests/VectorIntTest.cpp.s
 
+tests/VectorOperatorTest.o: tests/VectorOperatorTest.cpp.o
+.PHONY : tests/VectorOperatorTest.o
+
+# target to build an object file
+tests/VectorOperatorTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.o
+.PHONY : tests/VectorOperatorTest.cpp.o
+
+tests/VectorOperatorTest.i: tests/VectorOperatorTest.cpp.i
+.PHONY : tests/VectorOperatorTest.i
+
+# target to preprocess a source file
+tests/VectorOperatorTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.i
+.PHONY : tests/VectorOperatorTest.cpp.i
+
+tests/VectorOperatorTest.s: tests/VectorOperatorTest.cpp.s
+.PHONY : tests/VectorOperatorTest.s
+
+# target to generate assembly for a file
+tests/VectorOperatorTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/tests/VectorOperatorTest.cpp.s
+.PHONY : tests/VectorOperatorTest.cpp.s
+
 tests/VectorStringTest.o: tests/VectorStringTest.cpp.o
 .PHONY : tests/VectorStringTest.o
 
@@ -254,6 +278,9 @@ help:
 	@echo "... tests/VectorIntTest.o"
 	@echo "... tests/VectorIntTest.i"
 	@echo "... tests/VectorIntTest.s"
+	@echo "... tests/VectorOperatorTest.o"
+	@echo "... tests/VectorOperatorTest.i"
+	@echo "... tests/VectorOperatorTest.s"
 	@echo "... tests/VectorStringTest.o"
 	@echo "... tests/VectorStringTest.i"
 	@echo "... tests/VectorStringTest.s"
