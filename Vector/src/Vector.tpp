@@ -574,6 +574,11 @@ namespace core {
     }
 
     template <typename T, typename Allocator>
+    void swap(Vector<T, Allocator>& lhs, Vector<T, Allocator>& rhs)
+    {
+        lhs.swap(rhs);
+    }
+    template <typename T, typename Allocator>
     typename Vector<T, Allocator>::Vector& Vector<T, Allocator>::operator=( const Vector& other )
     {
         if (this == &other) {

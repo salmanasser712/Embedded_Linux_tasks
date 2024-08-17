@@ -76,8 +76,6 @@ class Vector {
     Vector& operator=( Vector&& other );
     Vector& operator=( std::initializer_list<T> ilist );
 
-    friend void swap(Vector<T, Allocator>& lhs, Vector<T, Allocator>& rhs);
-
 
 
     ~Vector();
@@ -110,7 +108,6 @@ bool operator>=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs
 
 template <typename T, typename Allocator>
 void swap(Vector<T, Allocator>& lhs, Vector<T, Allocator>& rhs);
-
 
 
 
