@@ -661,8 +661,8 @@ namespace core {
     template <typename T, typename Allocator>
     bool operator<(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
     {
-        Vector<T>::iterator itl = lhs.begin(), itr = rhs.begin();
-        for(itl < lhs.size() && itr < rhs.size(); itl++, itr++)
+        typename Vector<T, Allocator>::iterator itl = lhs.begin(), itr = rhs.begin();
+        for( ;itl < lhs.size() && itr < rhs.size(); itl++, itr++)
         {
             if(*itl > *itr)
             {
@@ -672,15 +672,14 @@ namespace core {
             {
                 return true;
             }
-
-            if()
         }
+        return lhs.size() < rhs.size();
     }
 
     template <typename T, typename Allocator>
     bool operator<=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
     {
-
+        return true;
     }
 
 
